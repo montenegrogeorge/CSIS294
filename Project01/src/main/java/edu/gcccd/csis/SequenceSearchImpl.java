@@ -8,54 +8,32 @@ public class SequenceSearchImpl extends SequenceSearch {
 
     @Override
     public String[] getAllTaggedSequences() {
-        // tagSeq will be returned string array
+        // tagSeq will be returned string array, return empty array
+        // if no start tags in the content string
         String[] tagSeq = new String[0];
-
-        // If there is no startTag, return empty array
         if ( !(content.contains(startTag)) ){
             return tagSeq;
         }
-
-        // If the start tag and the end tag are the same
-        if(startTag.equals(endTag)){
-            int indexStart = content.indexOf(startTag);
-            int indexEnd = content.indexOf(endTag, indexStart+startTag.length());
-
-
-            while(indexStart!=-1 && indexEnd!=-1) {
-
-                tagSeq = adds(tagSeq, content.substring(indexStart + startTag.length(), indexEnd) );
-
-                indexStart = content.indexOf(startTag, indexEnd+startTag.length());
-                indexEnd = content.indexOf(endTag, indexStart+endTag.length());
-            }
-            return tagSeq;
-        }
-        else { // If the tags are not the same
+            // Find the first end tag
             int indexEnd = content.lastIndexOf(endTag);
-            int indexStart = content.lastIndexOf(startTag, indexEnd);
-            while (indexEnd !=-1 && indexStart != -1){
-                if ( content.lastIndexOf(endTag, indexEnd-endTag.length()) > indexStart) {
-                    indexEnd = content.lastIndexOf(endTag, indexEnd-endTag.length());
-                    indexStart = content.lastIndexOf(startTag, indexEnd);
-                }
-                else {
+            int indexStart = content.lastIndexOf(startTag, indexEnd-1);
+
+            while (indexEnd !=-1 && indexStart !=-1){
+                // If the start/end tag line up correct, add to array
+                if ( content.lastIndexOf(endTag, indexEnd-1) <= indexStart) {
                     tagSeq = adds(tagSeq, content.substring(indexStart + startTag.length(), indexEnd));
-                    indexEnd = content.lastIndexOf(endTag, indexEnd-endTag.length());
-                    indexStart = content.lastIndexOf(startTag, indexEnd);
                 }
-            }
-            // reverse the string array, above algorithm finds tagged
-            // sequences in reverse
-            for(int i = 0; i < tagSeq.length / 2; i++)
-            {
-                String temp = tagSeq[i];
-                tagSeq[i] = tagSeq[tagSeq.length - i - 1];
-                tagSeq[tagSeq.length - i - 1] = temp;
+                // Go to next end tag
+                indexEnd = content.lastIndexOf(endTag, indexEnd-1);
+                // If the end tag and start tag are the same go down one more
+                if (startTag.equals(endTag)) {
+                    indexEnd = content.lastIndexOf(endTag, indexEnd-1);
+                }
+                indexStart = content.lastIndexOf(startTag, indexEnd-1);
             }
             return tagSeq;
         }
-    }
+
 
     @Override
     public String getLongestTaggedSequence() {

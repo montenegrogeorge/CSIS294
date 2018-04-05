@@ -63,8 +63,8 @@ public abstract class SequenceSearch implements Presentable {
         final String[] sa;
         if (a!=null && 0<a.length) {
             sa = new String[a.length + 1];
-            System.arraycopy(a, 0, sa, 0, a.length);
-            sa[a.length] = s;
+            System.arraycopy(a, 0, sa, 1, a.length);
+            sa[0] = s;
         } else {
             sa = new String[]{s};
         }
