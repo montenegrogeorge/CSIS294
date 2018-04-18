@@ -1,4 +1,4 @@
-if
+ifififif
 if
 assert
 boolean
@@ -8,4 +8,9 @@ implements
 implements
 implements
 ------------------------------------------- 
-
+Keywords: 12
+if: 5
+implements: 4
+goto: 1
+assert: 1
+boolean: 1

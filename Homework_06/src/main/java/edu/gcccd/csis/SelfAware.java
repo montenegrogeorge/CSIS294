@@ -2,12 +2,16 @@ package edu.gcccd.csis;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 
 class SelfAware implements Language {
 
+        // Hash map used to map the keywords to their respective count
         private HashMap<String, Integer> KWords = new HashMap<String, Integer>(ReservedWords.length);
 
+        // Constructor initializes the hashmap to reserved keywords to 0
         public SelfAware(String file) {
             for (String i: ReservedWords) {
                 KWords.put(i, 0);
@@ -24,20 +28,26 @@ class SelfAware implements Language {
         @Override
         public int occurrences(String sourceFile) throws Exception {
                 try {
+                        // Counter for all the keywords
                         int overallCount = 0;
 
+                        // For each keyword
                         for (String i : ReservedWords) {
                             int count = 0;
                             BufferedReader br = new BufferedReader(new FileReader(sourceFile));
                             String line = "";
-                            while( (line = br.readLine())!= null){
-                                    int index = 0;
-                                    while( (index = line.indexOf(i, index)) != -1) {
+
+                            // Read through each line in the file
+                            Pattern p = Pattern.compile(i);
+                            while( (line = br.readLine()) != null){
+                                Matcher m = p.matcher(line);
+                                    // When you find the keyword, add one to the count
+                                    while( m.find()) {
                                         overallCount++;
                                         count++;
-                                        index++;
                                     }
                             }
+                            // Replace entry in hashmap with count
                             KWords.replace(i, count);
                             br.close();
                         }
@@ -72,16 +82,23 @@ class SelfAware implements Language {
                      }
             }
 
+        /**
+         * Appends the txt file the data from the hashmap
+         *
+         * @param sourceFile {@link String} path to a java source file
+         * @throws IOException things didn't go too well ...
+         */
         public void appendMap(String sourceFile) throws IOException {
             try
             {
                 BufferedWriter fw = new BufferedWriter(new FileWriter(sourceFile,true));
+
+                // For every keyword with at least 1 instance, add it to the ext file
                 for( String i: KWords.keySet()  ) {
                     if (KWords.get(i) > 0) {
                         fw.write(i + ": " + KWords.get(i));
                         fw.newLine();
                     }
-
                 }
                 fw.flush();
                 fw.close();
@@ -90,7 +107,6 @@ class SelfAware implements Language {
             {
                 System.err.println("IOException");
             }
-
         }
 
     public static void main(String[] args) throws Exception {
