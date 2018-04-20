@@ -12,7 +12,7 @@ class SelfAware implements Language {
         private HashMap<String, Integer> KWords = new HashMap<String, Integer>(ReservedWords.length);
 
         // Constructor initializes the hashmap to reserved keywords to 0
-        public SelfAware(String file) {
+        public SelfAware() {
             for (String i: ReservedWords) {
                 KWords.put(i, 0);
             }
@@ -109,12 +109,16 @@ class SelfAware implements Language {
             }
         }
 
+
     public static void main(String[] args) throws Exception {
-//        final String code = System.getProperty("user.dir") + File.separator +
-//                "src" + File.separator + "main" + File.separator + "java" + File.separator +
-//                SelfAware.class.getName().replace(".", File.separator) + ".java";
-                SelfAware sa = new SelfAware("test.txt");
-                sa.append("Test.txt", "Keywords: " + sa.occurrences("test.txt") );
-                sa.appendMap("Test.txt");
+        final String code = System.getProperty("user.dir") + File.separator +
+                "src" + File.separator + "main" + File.separator + "java" + File.separator +
+                SelfAware.class.getName().replace(".", File.separator) + ".java";
+            SelfAware sa = new SelfAware();
+            sa.append(code,"\n//Keyword occurrences: " + sa.occurrences(code));
+            sa.appendMap(code);
+
     }
 }
+
+
