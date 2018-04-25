@@ -13,11 +13,12 @@ public class Recursion {
     static String printEveryOther(final int[] ia, final int k) {
         StringBuilder strBuilder = new StringBuilder();
         if (k < 0) throw new IllegalArgumentException("index must be greater or equal 0");
-        // ..
+        if(ia.length==1){
+            return String.valueOf(ia[0]);
+        }
         if (k >= ia.length)
         {return "";}
         else {
-
             return printEveryOther(ia, k + 2) + String.valueOf(ia[k]);
         }
     }
@@ -33,12 +34,11 @@ public class Recursion {
             if (s.charAt(0) == s.charAt(1)) {
                 return s.charAt(0) + "*" + printStars(s.substring(1));
             }
-            else
-            {return s.charAt(0) + printStars(s.substring(1));}
+            else {
+                return s.charAt(0) + printStars(s.substring(1));
+            }
         }
-        else {
-            return s.substring(0);
-        }
+        else {return s; }
 
 
 
