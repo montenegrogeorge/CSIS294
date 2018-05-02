@@ -20,13 +20,13 @@ public class GenericQueue <T> {
 
     public T dequeue() {
         if (list.isEmpty()) {
-            System.out.println("We empty");
+            System.out.println("Queue is empty");
             return null;
         }
         else {
-
-
-            return ;
+            T node = list.get(0);
+            list.remove(0);
+            return node;
         }
 
     }
@@ -43,16 +43,5 @@ public class GenericQueue <T> {
 
 
 
-    public static void main(String[] args) {
-        GenericQueue<Integer> Que = new GenericQueue<>(10);
-
-        Que.enqueue(5);
-        Que.enqueue(4);
-        Que.enqueue(3);
-
-        System.out.println(Que.dequeue());
-        System.out.println(Que.dequeue());
-        System.out.println(Que.dequeue());
-    }
 
 }
