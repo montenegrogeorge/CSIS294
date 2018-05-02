@@ -3,9 +3,10 @@ build.gradle
 gradlew
 gradlew.bat
 settings.gradle
-/gradle/wrapper
+
+gradle/wrapper
 .idea
-/gradle
+
 /out
 .bat
 
