@@ -33,24 +33,35 @@ public class GenericQueueTest {
             s.enqueue("First");
             s.enqueue("Second");
             s.enqueue("Third");
+            s.enqueue("Fourth");
 
             String sa = s.dequeue();
             String sb = s.dequeue();
             String sc = s.dequeue();
+            String sd = s.dequeue();
 
             assertEquals("First", sa);
             assertEquals("Second", sb);
             assertEquals("Third", sc);
-
-
+            assertEquals("Fourth", sd);
         }
 
         @Test
         public void EmptyTest() {
             GenericQueue<Integer> sa = new GenericQueue<>();
-
             assertTrue(sa.dequeue() == null );
+        }
 
+        @Test
+        public void sizeTest() {
+            GenericQueue<Integer> si = new GenericQueue<>();
+            si.enqueue(10);
+            assertEquals(1, si.length());
+            si.enqueue(11);
+            assertEquals(2, si.length());
+            si.enqueue(12);
+            si.enqueue(13);
+            assertEquals(4, si.length());
         }
 
 

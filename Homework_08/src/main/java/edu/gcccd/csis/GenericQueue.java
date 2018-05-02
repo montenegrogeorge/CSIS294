@@ -10,7 +10,6 @@ public class GenericQueue <T> {
 
     public GenericQueue() {
         this(10);
-
     }
 
     public GenericQueue(int size) {
@@ -28,7 +27,6 @@ public class GenericQueue <T> {
             list.remove(0);
             return node;
         }
-
     }
 
     public void enqueue(T value) {
@@ -39,9 +37,4 @@ public class GenericQueue <T> {
     public int length() {
         return list.size();
     }
-
-
-
-
-
 }
