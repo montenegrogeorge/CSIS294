@@ -1,5 +1,7 @@
 CSIS 294 Project 01 is my first project from my Intermediate Java with Data Structures at Grossmont Community College.
 
+This project was created with Gradle, but source files can be compiled by being added to a project with the package edu.gcccd.csis
+
 The professor provided the implementation of "Presentable" and of "SequenceSearch", we implemented "SequenceSearchImpl" which extends the SequenceSearch object.
 
 The "SequenceSearchImpl" object when created is passed a content string, a start tag, and an end tag. The object implements four different methods which includes:
